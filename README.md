@@ -1,15 +1,11 @@
-# 🚀 Welcome to your new awesome project!
+Antra Kacena
+1. Izstrādē pavadītais laiks: Praktiskā daļa lekcijā + 5h mājās.
 
-This project has been created using **webpack-cli**, you can now run
+2. Vislielākās problēmas sagādāja kopējās uzbūves struktūras izpratne un mēness orbīta ap zemi.
 
-```
-npm run build
-```
+3. Izdevās izpildīt visas prasības.
 
-or
+4. Izmantotie materiāli:
+https://docs.google.com/document/d/1FsztMAGK8G1jwbQeHF3Snixa6Gm5ZAil60CjKvydgfI/edit
 
-```
-yarn build
-```
-
-to bundle your application
+5. Palīdzēja - Raivis Tarakanovs (deva ieteikumus mēness orbītas izveidei)

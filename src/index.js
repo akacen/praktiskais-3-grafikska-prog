@@ -38,13 +38,13 @@ export class main {
 	}
 
 	createWorld() {
-		// var geometry = new THREE.SphereGeometry(this.marsDistance * 9 + 10000, 32, 32);
-		// var material = new THREE.MeshStandardMaterial({
-		// 	map: new THREE.TextureLoader().load(spaceTexture),
-		// 	side: THREE.DoubleSide
-		// });
-		// this.skysphere = new THREE.Mesh(geometry, material);
-		// this.scene.add(this.skysphere);
+		var geometry = new THREE.SphereGeometry(this.marsDistance * 9 + 10000, 32, 32);
+		var material = new THREE.MeshStandardMaterial({
+			map: new THREE.TextureLoader().load(spaceTexture),
+			side: THREE.DoubleSide
+		});
+		this.skysphere = new THREE.Mesh(geometry, material);
+		this.scene.add(this.skysphere);
 
 		this.createPlanet('earth', earthTexture, 149.6 * 1000, 12756 / 2);
 		this.createPlanet('venus', venusTexture, 108.2 * 1000, 6792 / 2);
