@@ -3,6 +3,8 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import sunTexture from './2k_sun.jpg';
 import spaceTexture from './2k_stars_milky_way.jpg';
 import earthTexture from './2k_earth_daymap.jpg';
+import venusTexture from './2k_venus_atmosphere.jpg';
+import moonTexture from './2k_moon.jpg';
 
 export class main {
 	
@@ -45,7 +47,8 @@ export class main {
 		// this.scene.add(this.skysphere);
 
 		this.createPlanet('earth', earthTexture, 149.6 * 1000, 12756 / 2);
-		this.createMoon('moon')
+		this.createPlanet('venus', venusTexture, 108.2 * 1000, 6792 / 2);
+		this.createMoon('moon', moonTexture, 384.4 * 50, 1737.4 * 2 )
 		this.createSun();
 	}
 
@@ -57,20 +60,46 @@ export class main {
 		});
 
 		let planet = new THREE.Mesh(geometry, material);
-		let system = new THREE.Object3D();
-		system.add(planet);
-		this.scene.add(system);
+		if (name.includes('earth')){
+			
+			let earthSystem = new THREE.Object3D();
+			this.earthSystem = earthSystem;
+			this.earthSystem.add(planet);
+			this.scene.add(this.earthSystem);
+		} else {
+			let system = new THREE.Object3D();
+			system.add(planet);
+			this.scene.add(system);
+		}
+		
 
-		this[name] = system;
+		this[name] = planet;
 		planet.distance = distance;
+		planet.radius = radius;
 
 		planet.castShadow = true;
 		planet.receiveShadow = true;
 
 	}
 
-	createMoon(name, texture_name, distance, radius, system) {
+	createMoon(name, texture_name, distance, radius) {
+		var geometry = new THREE.SphereGeometry(radius, 32, 32);
+		var material = new THREE.MeshStandardMaterial({
+			map: new THREE.TextureLoader().load(texture_name),
+			metalness: 0
+		});
 
+		let moon = new THREE.Mesh(geometry, material);
+
+		this.earthSystem.add(moon);
+		this.scene.add(this.earthSystem);
+		
+		this[name] = moon;
+		moon.distance = distance;
+		moon.radius = radius;
+
+		moon.castShadow = true;
+		moon.receiveShadow = true;
 	}
 
 	createSun() {
@@ -98,7 +127,21 @@ export class main {
   	}
 
 	animate() {
+		let tick = this.clock.getElapsedTime() / 10;
+			this.earth.parent.position.z = Math.sin(tick) * this.earth.distance;
+			this.earth.parent.position.x = Math.cos(tick) * this.earth.distance;
+			this.earth.rotation.y = -tick * 30;
+			
+			this.venus.parent.position.z = Math.sin(tick*2) * this.venus.distance;
+			this.venus.parent.position.x = Math.cos(tick*2) * this.venus.distance;
+			this.venus.rotation.y = -tick * 0.5;
+		
 
+			this.moon.position.z = Math.sin(tick * 5) * (this.moon.distance);
+			this.moon.position.x = Math.cos(tick * 5) * (this.moon.distance);
+			this.moon.rotation.y = -tick * 2;
+	
+		
 		this.controls.update();
 		requestAnimationFrame(() => this.animate());
 		this.renderer.render(this.scene, this.camera);
